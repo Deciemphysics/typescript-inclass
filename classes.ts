@@ -1,15 +1,36 @@
+import { Logger, Writable, Sealed } from './decorators';
 import * as Interfaces from './interfaces';
 
+
+@Sealed('UniversityLibrarian')
 class UniversityLibrarian implements Interfaces.Librarian {
     name: string;
     email: string;
     department: string;
+
+    constructor(){
+        console.log('Hello from constructor');
+    }
 
     assistCustomer(custName: string) {
         console.log(this.name + ' is assisting ' + custName);
     }
 }
 
+@Logger
+export class PublicLibrarian implements Interfaces.Librarian {
+    name: string;
+    email: string;
+    department: string;
+
+    assistCustomer(custName: string) {
+        console.log('Assisting customer.');
+    }
+    @Writable(false)
+    teachCommunity() {
+        console.log('Teaching community.');
+    }
+}
 abstract class ReferenceItem {
 
     private _publisher: string;
